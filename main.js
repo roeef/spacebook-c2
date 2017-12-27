@@ -13,11 +13,21 @@ function createPost() {
     post.val("");
 }
 
+const REMOVE_BUTTON_HTML ="<button class='btn btn-primary remove' type='button'>Remove</button>"
 function render() {
     let postsDiv = $('.posts');
     postsDiv.empty();
+
     for (let i = 0; i<posts.length; i++) {
-        postsDiv.append("<p class='post' data-id='"+posts[i].id+"'>"+ posts[i].text + "</p>");
+        let post = $("<p class='post' data-id='"+posts[i].id+"'>"+ posts[i].text +"</p>");
+        let removeButton = $(REMOVE_BUTTON_HTML)
+        post.append(removeButton);
+        postsDiv.append(post);
+
+        removeButton.click(function(){
+            posts.splice(i,1);
+            render();
+        })
     }
 }
 
