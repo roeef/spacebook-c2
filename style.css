@@ -1,0 +1,21 @@
+.post {
+    font-size: 30px;
+}
+.remove {
+    margin-left: 20px;
+
+}
+.comment-content {
+    display: inline-block;
+    width:50%;
+}
+
+.comment-user {
+    display: inline-block;
+    width:10%;
+}
+
+.comment-box {
+    font-size: 25px;
+    padding-left: 50px;
+}
