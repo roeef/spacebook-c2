@@ -48,15 +48,14 @@ function addCommentClicked(i) {
 
 }
 
-function removePost(i) {
-    posts.splice(i, 1);
+function removePost() {
+    posts.splice($(this).closest('.post').data().arrayIndex, 1);
     render();
 }
 
 function removeComment(i, comment_i) {
     posts[i].comments.splice(comment_i, 1);
     render();
-
 }
 
 function buildComments(i, commentBox) {
@@ -82,19 +81,21 @@ function render() {
     for (let i = posts.length-1; i >= 0 ; i--) {
         // create post <p>
         let post = $("<p class='post' data-id='" + posts[i].id + "'>" + posts[i].text + "</p>");
-
+        post.data('arrayIndex',i);
 
         // create Remove post button
         let removeButton = $(REMOVE_BUTTON_HTML);
+
         // on click remove from array and render again.
-        removeButton.click(function () {removePost(i)});
+
+        removeButton.click(removePost);
 
         let commentButton = $(COMMENT_BUTTON);
         // assign add comment listener
-        commentButton.click(function () {addCommentClicked.call(this, i)});
+        commentButton.click(addCommentClicked);
 
         let commentBox = $(COMMENT_DIV);
-       /* let {comment_i, name, comment, remove, row} = */buildComments(i, commentBox);
+        buildComments(i, commentBox);
 
 
         // append button to post

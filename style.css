@@ -11,11 +11,14 @@ body {
     padding: 15px 15px 0 15px;
     border: 1px solid #bababa;
 }
+.row {
+    padding: 4px 15px 3px 15px;
+
+}
 .comment-box .row/*:not(:last-child)*/ {
-    padding: 5px 15px 5px 30px;
+    padding: 5px 15px 5px 15px;
     border-top: 1px solid #bababa   ;
     background-color: #f5f5f5;
-
 }
 .remove {
     display: inline-block;
@@ -29,19 +32,15 @@ body {
 }
 .comment-content {
     display: inline-block;
-    margin: 10px;
-    width:50%;
+    margin: 0 10px 10px 0;
+    width:55%;
 }
 
 .comment-user {
     display: inline-block;
-    margin-left: 50px;
     width:15%;
 }
 
-.comment-btn {
-    margin-right: 50px;
-}
 
 .comment-box {
     /*transform:translate(0px,20px);-ms-transform:translate(0px,20px);*/
