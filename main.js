@@ -47,16 +47,33 @@ function addCommentClicked(i) {
     render();
 
 }
+
 function removePost(i) {
     posts.splice(i, 1);
     render();
-
 }
+
 function removeComment(i, comment_i) {
     posts[i].comments.splice(comment_i, 1);
     render();
 
 }
+
+function buildComments(i, commentBox) {
+    for (let comment_i = 0; comment_i < posts[i].comments.length; comment_i++) {
+        let name = $(COMMENTS_NAME).append(posts[i].comments[comment_i].name);
+        let comment = $(COMMENTS_CONTENT).append(posts[i].comments[comment_i].comment);
+
+        let remove = $(REMOVE_COMMENT).click(function () {
+            removeComment(i, comment_i)
+        });
+
+        let row = $(ROW).append(name).append(comment).append(remove);
+        commentBox.append(row);
+    }
+    // return {comment_i, name, comment, remove, row};
+}
+
 function render() {
 
     let postsDiv = $('.posts');
@@ -65,34 +82,29 @@ function render() {
     for (let i = posts.length-1; i >= 0 ; i--) {
         // create post <p>
         let post = $("<p class='post' data-id='" + posts[i].id + "'>" + posts[i].text + "</p>");
-        // create button
-        let removeButton = $(REMOVE_BUTTON_HTML);
-        let commentButton = $(COMMENT_BUTTON);
 
+
+        // create Remove post button
+        let removeButton = $(REMOVE_BUTTON_HTML);
+        // on click remove from array and render again.
+        removeButton.click(function () {removePost(i)});
+
+        let commentButton = $(COMMENT_BUTTON);
         // assign add comment listener
         commentButton.click(function () {addCommentClicked.call(this, i)});
 
         let commentBox = $(COMMENT_DIV);
-        for (let comment_i = 0; comment_i < posts[i].comments.length; comment_i++) {
-            let name = $(COMMENTS_NAME).append(posts[i].comments[comment_i].name);
-            let comment = $(COMMENTS_CONTENT).append(posts[i].comments[comment_i].comment);
-
-            let remove = $(REMOVE_COMMENT).click(function () {removeComment(i, comment_i)});
-
-            let row = $(ROW).append(name).append(comment).append(remove);
-            commentBox.append(row);
-        }
-
+       /* let {comment_i, name, comment, remove, row} = */buildComments(i, commentBox);
 
 
         // append button to post
-        post.append(removeButton).append(ROW).append(commentBox);
         // append post to all posts div
+
+
+        post.append(removeButton).append(ROW).append(commentBox);
         postsDiv.append(post);
         postsDiv.append($(ROW).append(COMMENT_USER).append(COMMENT_INPUT).append(commentButton));
 
-        // on click remove from array and render again.
-        removeButton.click(function () {removePost(i)});
     }
 }
 
